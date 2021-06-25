@@ -125,7 +125,7 @@
 
       // gets local geo info through IP, calls other functions
       function getStarted() {
-        axios.get('http://api.ipstack.com/185.192.71.18?access_key=8e6c9e74ef5e0b86e0c4d1d50e15995e')
+        axios.get('https://ipapi.co/json/')
           .then(response => {
             // shortform name vars improve readability of code
             console.log(response);
