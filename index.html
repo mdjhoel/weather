@@ -1,245 +1,248 @@
 <html>
+  <head>
+    <title>My community</title>
 
-    <head>
-        
-        <!-- Bring in jquery first, requirement of Materialize -->
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        
-        <!-- Bring in Axios for APIs -->
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Bring in Axios for APIs -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-        <!-- Compiled and minified Materialize CSS and JS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            
-        <!-- Bring in Leaflet mappiing CSS and JS -->
-        <link rel='stylesheet' href='css/leaflet.css'/>
-        <script src='js/leaflet.js'></script>
-        
-        <!-- Bring in Materialize icons -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        
-        <!-- weather icons - https://erikflowers.github.io/weather-icons/ -->
+    <!-- Compiled and minified Materialize CSS and JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-        <!-- Internal CSS -->
-        <style>
-        
-            ul.weatherstuff {
-                list-style: none;
-                float: left;
-                padding-bottom: 20px;
-            }
-            
-            ul.weatherstuff li {
-                float: left;
-                display: inline;
-            }
-            
-            #num {
-                margin-left: 10px;
-                font-family: sans-serif;
-                font-size: 400%;
-                font-weight: 700;
-                padding-right: 5px;
-            }
-            
-            #degree {
-                padding-top: 15px; 
-                font-family: sans-serif;
-                font-size: 150%;
-                color: gray;
-            }
-            
+    <!-- Bring in Leaflet mappiing CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-            
-            #stuffcards {
-                height: 300px; /* Your height here */
-                
-            }
-            
-            #mydate {
-                float: left;
-                padding-left: 10px;
-                color: gray;
-            }
-        
-        </style>
-        
-        <title>my weather app</title>
-    </head>
-    
-    
-    <body>
-    
-        <nav>
-            <div class="nav-wrapper blue darken-4">
-                <img src='shield.svg' style='width:50; margin-left: 10px; margin-right: 20px; margin-top:5px; margin-bottom: 5px;'><span class="brand-logo">my weather app</span>
-              
-              <ul class="right hide-on-med-and-down">
-                <li><a href="about.html">About</a></li>
-              </ul>
+    <!-- Bring in Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+    <!-- weather icons - https://erikflowers.github.io/weather-icons/ -->
+
+    <!-- Internal CSS -->
+    <style>
+      ul.weatherstuff {
+        list-style: none;
+        float: left;
+        padding-bottom: 20px;
+      }
+
+      ul.weatherstuff li {
+        float: left;
+        display: inline;
+      }
+
+      #num {
+        margin-left: 10px;
+        font-family: sans-serif;
+        font-size: 400%;
+        font-weight: 700;
+        padding-right: 5px;
+      }
+
+      #degree {
+        padding-top: 15px;
+        font-family: sans-serif;
+        font-size: 150%;
+        color: gray;
+      }
+
+      #stuffcards {
+        height: 300px; /* Your height here */
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-wrapper blue darken-4">
+        <img src='shield.svg' style='width:50; margin-left: 10px; margin-right: 20px; margin-top:5px; margin-bottom: 5px;'><span class="brand-logo">my community</span>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div style="margin: 20px;"> <!-- container -->
+
+      <div class="row">
+        <div class="col s12 l6">
+          <div class="card" id="stuffcards">
+            <div class="card-content">
+              <h5 id="city"></h5>
+              <p>Welcome. This site is dedicated to our community.</p>
+              <p>Today's daily high temperature and weather will be ...</p>
+              <div id="icon">
+                <div class="preloader-wrapper small active">
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div>
+                      <div class="circle-clipper right">
+                          <div class="circle"></div>
+                      </div>
+                  </div>
+                </div> <!-- end preloader -->
+              </div> <!-- end icon div -->
             </div>
-        </nav>
-        <div style="margin: 20px;">
+          </div> <!-- end card -->
+        </div> <!-- end column -->
 
-            <div class="row">
-                <div class="col s12 l6">
-                    <div class="card" id="stuffcards">
-                        <div class="card-content">
-                            
-                            <h5 id="city"></h5>
-                            <div id="icon"></div>
-                    
-                            <div id="spinner" class="preloader-wrapper big active">
-                                <div class="spinner-layer spinner-blue-only">
-                                  <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                  </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                  </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 l6">
-                    <div class="card" id="stuffcards">
-                        <div class="card-content">
-                            <div id="detail"></div>
-                        </div>
-                    </div>
-                </div>
+        <div class="col s12 l6">
+          <div class="card" id="stuffcards">
+            <div class="card-content">
+              <div id='map' style='width:100%; height:80%'></div>
             </div>
-            
-            <div class="row">
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
-                          <div id='map' style='width:100%; height:80%'></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-      
+          </div>
         </div>
+
+      </div> <!-- end first row -->
+
+      <div class="row">
+        <div id='photos'></div>
+      </div> <!-- end second row -->
+
+      <div class="row">
+
+        <div class="col s12">
+          <div class="card" id="mycard">
+            <div class="card-content">
+              <canvas id="line-chart" width="800" height="450"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- end third row -->
 
     </body>
 
     <script>
-        
-        function map(lat,lon) {
-            // Set up the map
-            map = new L.Map('map');
-            var cartocdn = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
-            
-            // other maps? https://carto.com/help/building-maps/basemap-list/
-            carto = new L.TileLayer(cartocdn);
-            map.setView([lat,lon],14.1); 
-            map.addLayer(carto);
 
+      // start the ball rolling
+      getStarted();
+
+      // gets local geo info through IP, calls other functions
+      function getStarted() {
+        axios.get('http://ip-api.com/json/')
+          .then(response => {
+            // shortform name vars improve readability of code
+            var lat = response.data.lat;
+            var lon = response.data.lon;
+
+            // draw map, photos and weather
+            getMap(lat,lon);
+            getPhotos(lat,lon);
+            getWeather(lat,lon);
+
+            // add city and region to webpage
+            var cityHandle = document.getElementById("city")
+            cityHandle.innerHTML = response.data.city + ", " + response.data.regionName;
+          })
+          .catch(error => console.error(error));
+      }
+
+      function getMap(lat,lon) {
+        // Set up the map
+        map = new L.Map('map');
+        var cartocdn = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+
+        // other maps? https://carto.com/help/building-maps/basemap-list/
+        carto = new L.TileLayer(cartocdn);
+        map.setView([lat,lon],10);
+        map.addLayer(carto);
+        L.circle([lat,lon],{color:"red",radius:1000})
+        .addTo(map).bindPopup("My IP location<br>" + lat + "," + lon);
+      }
+
+      function getPhotos(lat,lon) {
+        // awesome API for COVID
+        axios.get("https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=10000&ggscoord=" + lat + "|" + lon + "&ggslimit=4&prop=imageinfo&iilimit=1&iiprop=url&iiurlheight=200&origin=*")
+          .then(response => {
+            // change object data to an array for easy looping
+            var arr = Object.values(response.data.query.pages);
+            var divHandle = document.getElementById('photos');
+            myHTML = "";
+            for (i=0;i<arr.length;i++) {
+              myHTML = myHTML + "<div class='col s6 m3'><div class='card'><div class='card-content'>";
+              myHTML = myHTML + "<img src='" + arr[i].imageinfo['0'].thumburl + "' style='width:100%'>";
+              myHTML = myHTML + "</div></div></div>";
+            }
+            divHandle.innerHTML = myHTML;
+          })
+      }
+
+      function getWeather(lat,lon) {
+        var apiString = "https://www.7timer.info/bin/civillight.php?lon=" + lon + "&lat=" + lat + "&unit=metric&output=json";
+        axios.get(apiString)
+          .then(response => {
+            console.log(response); // check out the data
+            fetchWeather(response.data.dataseries[0]); // update info card
+            lineChart(response.data.dataseries);
+          })
+      }
+
+      // put weather and date in main info card
+      function fetchWeather(data) {
+
+        // create a dictionary object to translate API to icons
+        var dict = {"cloudy": "wi-day-cloudy.svg", "cloudynight":"wi-night-cloudy.svg", "lightrain": "wi-day-showers.svg", "lightrainnight":"wi-night-showers.svg", "clear":"wi-day-sunny.svg", "clearnight": "wi-night-clear.svg", "pcloudy": "wi-day-cloudy.svg", "pcloudynight":"wi-night-partly-cloudy.svg","mcloudy":"wi-day-cloudy-high.svg", "mcloudynight":"wi-night-cloudy-high.svg", "humid": "wi-day-sunny-overcast.svg", "humidnight":"wi-night-sunny-overcast.svg", "oshower":"wi-day-showers.svg", "oshowernight":"wi-night-showers.svg", "ishower":"wi-day-showers.svg", "ishowernight":"wi-night-showers.svg", "lightsnow":"wi-day-snow.svg", "lightsnownight":"wi-night-snow.svg", "rain":"wi-day-rain.svg", "rainnight":"wi-night-rain.svg", "snow":"wi-day-snow.svg","snownight":"wi-night-snow.svg", "rainsnow":"wi-day-rain-mix.svg", "rainsnownight": "wi-night-rain-mix.svg"};
+
+        // get element from card on webpage
+        icoHandle = document.getElementById("icon");
+
+        // create HTML for webpage and insert data
+        myhtml = "<div class='row'><ul class='weatherstuff'>";
+        myhtml = myhtml + "<li><img src='svg/" + dict[data["weather"]] + "' width='100px'></li>";
+        myhtml = myhtml + "<li><div id='num'>" + data.temp2m.max + "</div></li>";
+        myhtml = myhtml + "<li><div id='degree'>Cº</div></li>";
+        myhtml = myhtml + "</ul></div>";
+
+        // push myhtml into card
+        icoHandle.innerHTML = myhtml;
+
+      }
+
+      function lineChart(data) {
+        // create empty arrays to hold data
+        var highs = [];
+        var lows = [];
+        var dates = [];
+        // fill arrays with data for 7 day forecast
+        for (i=1;i<data.length;i++) {
+          highs.push(data[i].temp2m.max);
+          lows.push(data[i].temp2m.min)
+          dates.push(data[i].date);
         }
-        
-        // ECMA6 arrow functions allow for shorter syntax
-        // Use const for variables that can not be reassigned
-        const fetchUsers = () => {
-            axios.get('https://freegeoip.app/json/')
-                .then(response => {
-                    const city = response.data.city;
-                    const region = response.data.region_name;
-                    const lat = response.data.latitude;
-                    const lon = response.data.longitude;
-                    console.log(response.data);
-                
-                    map(lat,lon); // send lat, lon to map function
-                
-                    // add city and region to webpage
-                    cdiv = document.getElementById("city")
-                    cdiv.innerHTML = city + ", " + region;
-                
-                    // create string and send it to fetchweather function
-                    var apiString = "https://www.7timer.info/bin/civil.php?lon=" + lon + "&lat=" + lat + "&unit=metric&output=json";
-                
-                    fetchWeather(apiString);
-                
-                })
-                .catch(error => console.error(error));
-        };
-        
-        // get NOAA GFS weather from 7Timer api and display data
-        // https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/global-forcast-system-gfs
-        // http://www.7timer.info/doc.php
-        const fetchWeather = (apiString) => {
-            axios.get(apiString)
-                .then(response => {
-                    const weather = response.data;
-                    console.log(`8 day weather:`, weather);
-                
-                    // algorithm to determine timepoint
-                    // notice there are many ways to initialize a variable
-                    // Javascript/ECMAscript is evolving and forgiving
-                    currentDate = new Date();
-                    let hours = currentDate.getHours();
-                    var timepoint = parseInt((hours + 3)/3);
-                    console.log(timepoint);
-                    let myseries = weather["dataseries"][timepoint];
-                
-                    var myweather = myseries["weather"];
-                    var mytemp = myseries["temp2m"];
 
-                    // create a dictionary object to translate API to icons
-                    const dict = {"cloudyday": "wi-day-cloudy.svg", "cloudynight":"wi-night-cloudy.svg", "lightrainday": "wi-day-showers.svg", "lightrainnight":"wi-night-showers.svg", "clearday":"wi-day-sunny.svg", "clearnight": "wi-night-clear.svg", "pcloudyday": "wi-day-cloudy.svg", "pcloudynight":"wi-night-partly-cloudy.svg","mcloudyday":"wi-day-cloudy-high.svg", "mcloudynight":"wi-night-cloudy-high.svg", "humidday": "wi-day-sunny-overcast.svg", "humidnight":"wi-night-sunny-overcast.svg", "oshowerday":"wi-day-showers.svg", "oshowernight":"wi-night-showers.svg", "ishowerday":"wi-day-showers.svg", "ishowernight":"wi-night-showers.svg", "lightsnowday":"wi-day-snow.svg", "lightsnownight":"wi-night-snow.svg", "rainday":"wi-day-rain.svg", "rainnight":"wi-night-rain.svg", "snowday":"wi-day-snow.svg","snownight":"wi-night-snow.svg", "rainsnowday":"wi-day-rain-mix.svg", "rainsnownight": "wi-night-rain-mix.svg"};
+        new Chart(document.getElementById("line-chart"), {
+          type: 'line',
+          data: {
+            labels: dates,
+            datasets: [{
+                data: highs,
+                label: "Highs",
+                borderColor: "#3e95cd",
+                fill: false
+              }, {
+                data: lows,
+                label: "Lows",
+                borderColor: "#8e5ea2",
+                fill: false
+              }
+            ]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Daily temperatures'
+            }
+          }
+        });
+      }
 
-                    // access the svg from the dictionary using API code
-                    access = "svg/" + dict[myweather];       
-                    
-                    // get element from webpage
-                    ico = document.getElementById("icon");
-                
-                    // create HTML for webpage and insert data
-                    myhtml = "<div class='row'><ul class='weatherstuff'>";
-                    myhtml = myhtml + "<li><img src=" + access + " width='100px'></li>";
-                    myhtml = myhtml + "<li><div id='num'>" + mytemp + "</div></li>";
-                    myhtml = myhtml + "<li><div id='degree'>Cº</div></li></ul></div>";
-                    myhtml = myhtml + "<div id='mydate' class='row'><p>" + currentDate + "</p></div>"
-                
-                    // insert created html into webpage
-                    ico.innerHTML = myhtml;
-
-                    // get rid of spinner
-                    sdiv = document.getElementById("spinner");
-                    sdiv.innerHTML = "";
-                
-                    // create details HTML
-                    let mydetails = "";
-                    mydetails = mydetails + "<ul class='collection'>";
-                    mydetails = mydetails + "<li class='collection-item avatar'>";
-                    mydetails = mydetails + "<img src='svg/wi-umbrella.svg' class='circle'>";
-                    mydetails = mydetails + "<span class='title'>Precipitation</span>";
-                    mydetails = mydetails + "<p>" + myseries["prec_type"] + "</p></li>";
-                    mydetails = mydetails + "<li class='collection-item avatar'>";
-                    mydetails = mydetails + "<img src='svg/wi-raindrop.svg' class='circle'>";
-                    mydetails = mydetails + "<span class='title'>Amount</span>";
-                    mydetails = mydetails + "<p>" + myseries["prec_amount"] + " mm</p></li>";
-                    mydetails = mydetails + "<li class='collection-item avatar'>";
-                    mydetails = mydetails + "<img src='svg/wi-humidity.svg' class='circle'>";
-                    mydetails = mydetails + "<span class='title'>Relative humidity</span>";
-                    mydetails = mydetails + "<p>" + myseries["rh2m"] + "</p></li>";
-                    mydetails = mydetails + "</ul>";
-                       
-                    // insert details HTML into webpage
-                    details = document.getElementById("detail");
-                    details.innerHTML = mydetails;
-                
-                })
-                .catch(error => console.error(error));
-        };
-        
-        // call fetchUsers function to start the ball rolling
-        fetchUsers();
-             
     </script>
-    
-    
+
+
 </html>
