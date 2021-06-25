@@ -125,11 +125,12 @@
 
       // gets local geo info through IP, calls other functions
       function getStarted() {
-        axios.get('http://ip-api.com/json/')
+        axios.get('http://api.ipstack.com/185.192.71.18?access_key=8e6c9e74ef5e0b86e0c4d1d50e15995e')
           .then(response => {
             // shortform name vars improve readability of code
-            var lat = response.data.lat;
-            var lon = response.data.lon;
+            console.log(response);
+            var lat = response.data.latitude;
+            var lon = response.data.longitude;
 
             // draw map, photos and weather
             getMap(lat,lon);
@@ -138,10 +139,11 @@
 
             // add city and region to webpage
             var cityHandle = document.getElementById("city")
-            cityHandle.innerHTML = response.data.city + ", " + response.data.regionName;
+            cityHandle.innerHTML = response.data.city + ", " + response.data.region_name;
           })
           .catch(error => console.error(error));
       }
+
 
       function getMap(lat,lon) {
         // Set up the map
