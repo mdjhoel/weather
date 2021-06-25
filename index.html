@@ -139,7 +139,7 @@
 
             // add city and region to webpage
             var cityHandle = document.getElementById("city")
-            cityHandle.innerHTML = response.data.city + ", " + response.data.region_name;
+            cityHandle.innerHTML = response.data.city + ", " + response.data.region;
           })
           .catch(error => console.error(error));
       }
