@@ -1,0 +1,286 @@
+<html>
+    <head>
+
+        <!-- link to axios and chartjs CDNs -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+        <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+
+        <!-- CDN for Materialize framework -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo" style="padding-left: 15">Mr Hoel</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#lesson">Lesson</a></li>
+                <li><a href="#future">Future</a></li>
+              </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+
+            <h3 class="myh3">Day 7 - Charts with ChartJS</h3>
+              <div class="row">
+                <div class="col s12">
+                  <div class="card" id="mycard">
+
+                    <div class="card-content">
+                      <p>JSON is a lightweight mapping library you can use to create all types of mapping apps.</p>
+                      <div style="padding-top: 10px;">
+                        <button class="waves-effect waves-light btn" onclick="barChart()"><i class="material-icons left">insert_chart</i>Bar</button>
+                        <button class="waves-effect waves-light btn" onclick="lineChart()"><i class="material-icons left">multiline_chart</i>Line</button>
+                        <button class="waves-effect waves-light btn" onclick="pieChart()"><i class="material-icons left">pie_chart</i>Pie</button>
+                        <button class="waves-effect waves-light btn" onclick="getdata()"><i class="material-icons left">cloud</i>API</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            <h3 id="lesson">Lesson progression</h3>
+
+            <ul class="collection">
+                <li class="collection-item avatar">
+                  <i class="material-icons circle red">play_arrow</i>
+                  <span class="title">What is ChartJS?</span>
+                  <p><a href="https://www.youtube.com/watch?v=IIz2WYcGD94" target="_blank">Quick intro</a>
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle pink">chrome_reader_mode</i>
+                  <span class="title">Chartjs samples</span>
+                    <p><a href="https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/" target="_blank">Teacher shows samples</a></p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle pink">code</i>
+                  <span class="title">ChartJS programming</span>
+                  <p>
+                      Update your existing dash.html with a line chart for max and min temps.
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle pink">code</i>
+                  <span class="title">Wikimedia commons imagery</span>
+                  <p>
+                      Update your existing dash.html with Wikimedia commons image thumbnails.
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle blue">cloud_upload</i>
+                  <span class="title">Upload new code to Github</span>
+                  <p>
+                      Upload your changes
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle blue">cloud_upload</i>
+                  <span class="title">Update your repo wiki</span>
+                  <p>
+                      Write about what you learned today. Link your dash.html. Be prepared to show and tell your dashboard next class.
+                  </p>
+                </li>
+              </ul>
+
+            <h3 id="future">Future lessons</h3>
+            <ul class="collection">
+                <li class="collection-item">Show and tell</li>
+            </ul>
+        </div>
+    </body>
+
+    <script>
+
+    // call basic chart
+    barChart();
+
+    function createCanvas(id) {
+
+      // Test if myChart has been created, if so remove it and start over
+      var elem = document.getElementById("myChart");
+      if (elem != null || typeof(element) != 'undefined') {
+        console.log("deleting existing canvas");
+        elem.remove();
+      }
+
+      var canvas = document.createElement("canvas");
+      canvas.id = id;
+      canvas.width = 400;
+      canvas.height = 200;
+      document.getElementById('mycard').appendChild(canvas);
+    }
+
+    function barChart() {
+
+      var myid = "myChart";
+      createCanvas(myid);
+
+      // Bar chart
+      new Chart(document.getElementById(myid), {
+          type: 'bar',
+          data: {
+            labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            datasets: [
+              {
+                label: "Population (millions)",
+                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                data: [2478,5267,734,784,433]
+              }
+            ]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: 'Predicted world population (millions) in 2050'
+            }
+          }
+      });
+    }
+
+    function lineChart() {
+
+      var myid = "myChart";
+      createCanvas(myid);
+
+      new Chart(document.getElementById(myid), {
+        type: 'line',
+        data: {
+          labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+          datasets: [{
+              data: [86,114,106,106,107,111,133,221,783,2478],
+              label: "Africa",
+              borderColor: "#3e95cd",
+              fill: false
+            }, {
+              data: [282,350,411,502,635,809,947,1402,3700,5267],
+              label: "Asia",
+              borderColor: "#8e5ea2",
+              fill: false
+            }, {
+              data: [168,170,178,190,203,276,408,547,675,734],
+              label: "Europe",
+              borderColor: "#3cba9f",
+              fill: false
+            }, {
+              data: [40,20,10,16,24,38,74,167,508,784],
+              label: "Latin America",
+              borderColor: "#e8c3b9",
+              fill: false
+            }, {
+              data: [6,3,2,2,7,26,82,172,312,433],
+              label: "North America",
+              borderColor: "#c45850",
+              fill: false
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'World population per region (in millions)'
+          }
+        }
+      });
+    }
+
+    function pieChart() {
+
+      var myid = "myChart";
+      createCanvas(myid);
+
+      new Chart(document.getElementById(myid), {
+          type: 'pie',
+          data: {
+            labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+            datasets: [{
+              label: "Population (millions)",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+              data: [2478,5267,734,784,433]
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Predicted world population (millions) in 2050'
+            }
+          }
+      });
+    }
+
+    // this piece of code uses axios to go get the data and run the functions to build the web site
+    function getdata() {
+        axios.get("https://www.trackcorona.live/api/countries")
+        .then(response => {
+            //mapit(response.data.data) // draw the map
+            algo(response.data.data)
+        })
+        .catch(error => { // in case there is an error
+            console.log("whoops something bad happened!");
+            console.log(error);
+        })
+    }
+
+    // function receives API data, loops and creates a circle for each
+    function algo(response) {
+        // algorithm to go through all API data and map it
+        data = response;
+        allvalues = Object.values(data);
+        countries = []
+        confirmed = []
+        for (i = 0; i < 6; i++) {
+            countries.push(allvalues[i]['location']);
+            confirmed.push(allvalues[i]['confirmed'])
+        }
+
+        var myid = "myChart";
+        createCanvas(myid);
+
+        var ctx = document.getElementById(myid).getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: countries,
+                datasets: [{
+                    label: 'Total Confirmed',
+                    data: confirmed,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    </script>
+
+</html>

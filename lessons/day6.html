@@ -1,0 +1,112 @@
+<html>
+    <head>
+
+        <!-- CDN for Leaflet mapping libary -->
+        <link rel='stylesheet' href='https://unpkg.com/leaflet@1.4.0/dist/leaflet.css'/>
+        <script src='https://unpkg.com/leaflet@1.4.0/dist/leaflet.js'></script>
+
+        <!-- CDN for Materialize framework -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo" style="padding-left: 15">Mr Hoel</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#lesson">Lesson</a></li>
+                <li><a href="#future">Future</a></li>
+              </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+
+            <h3 class="myh3">Day 6 - Mapping using Leaflet.js</h3>
+              <div class="row">
+                <div class="col s12">
+                  <div class="card">
+                    <div id='map' style='width:100%; height:400'></div>
+                    <div class="card-content">
+                      <p>Leaflet is a lightweight mapping library you can use to create all types of mapping apps. From simple location maps to adding your own data as points, lines or polygons or an entire file in geojson format</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            <h3 id="lesson">Lesson progression</h3>
+
+            <ul class="collection">
+                <li class="collection-item avatar">
+                  <i class="material-icons circle red">play_arrow</i>
+                  <span class="title">Leaflet works with geographic data. What is GIS?</span>
+                  <p><a href="https://www.youtube.com/watch?v=LHDCRjAxpI0" target="_blank">Quick review of Geographic Information Systems</a>
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle pink">chrome_reader_mode</i>
+                  <span class="title">LeafletJS help</span>
+                    <p><a href="https://leafletjs.com/" target="_blank">Help is always close!</a></p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle pink">code</i>
+                  <span class="title">Basics of Leaflet</span>
+                  <p>Update dash.html with a map. Modularize your map code in a function.</p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle pink">code</i>
+                  <span class="title">Map your current location</span>
+                  <p>
+                    Use the IP location API to find and map your lat, lon coordinates.
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle blue">cloud_upload</i>
+                  <span class="title">Upload new code to Github</span>
+                  <p>
+                      Upload your dash.html.
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="material-icons circle blue">cloud_upload</i>
+                  <span class="title">Update your repo wiki</span>
+                  <p>
+                      Write about what you learned today.
+                  </p>
+                </li>
+              </ul>
+
+            <h3 id="future">Future lessons</h3>
+            <ul class="collection">
+                <li class="collection-item">Advanced Mapping algorithm data API</li>
+                <li class="collection-item">Graphing using chart.js</li>
+                <li class="collection-item">Show and tell</li>
+            </ul>
+        </div>
+    </body>
+
+    <script>
+
+        map = new L.Map('map');
+        var cartocdn = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+        cartoAttrib = 'Carto geodatabase is good for this application';
+        carto = new L.TileLayer(cartocdn);
+        map.setView([51.5, 0.12],5); // centered on London lat, long
+        map.addLayer(carto);
+
+        var circle = L.circle([51.508, -0.11], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 50000
+        }).addTo(map);
+
+        circle.bindPopup("Go <b>England</b> Go!<br>.<img src='harry.jpg' width='300'>")
+        .openPopup();
+
+    </script>
+
+</html>
